@@ -1,0 +1,2 @@
+# Letterboxd Shortcuts
+

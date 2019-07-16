@@ -1,0 +1,26 @@
+{
+
+  "manifest_version": 2,
+  "name": "Letterboxd Shortcuts",
+  "description": "Keyboard shortcuts for Letterboxd.",
+  "version": "1.0",
+
+  "permissions": [
+    "contextMenus",
+    "activeTab"
+  ],
+
+  "background": {
+    "scripts": ["background.js"]
+  },
+  
+  "content_scripts": [
+    {
+      "matches": ["*://*.letterboxd.com/film/*"],
+      "js": ["shortcutsFilm.js"]
+    }
+  ]
+
+}
+
+
