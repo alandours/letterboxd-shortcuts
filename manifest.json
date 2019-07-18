@@ -16,17 +16,21 @@
   
   "content_scripts": [
     {
+      "matches": ["*://*.letterboxd.com/*"],
+      "include_globs": ["*letterboxd.com/*/films/diary*", "*letterboxd.com/*/tag/*/diary*"],
+      "js": ["js/shortcutsMain.js", "js/shortcutsDiary.js"],
+      "css": ["js/shortcuts.css"]
+    },
+    {
       "matches": ["*://*.letterboxd.com/film/*"],
-      "js": ["shortcutsMain.js", "shortcutsFilm.js"]
+      "js": ["js/shortcutsMain.js", "js/shortcutsFilm.js"]
     },
     {
       "matches": ["*://*.letterboxd.com/*"],
-      "exclude_globs": ["*letterboxd.com/film/*"],
-      "js": ["shortcutsMain.js", "shortcutsFilmGrid.js"],
-      "css": ["shortcuts.css"]
+      "exclude_globs": ["*letterboxd.com/film/*", "*letterboxd.com/*/films/diary*", "*letterboxd.com/*/tag/*/diary*"],
+      "js": ["js/shortcutsMain.js", "js/shortcutsFilmGrid.js"],
+      "css": ["css/shortcuts.css"]
     }
   ]
 
 }
-
-

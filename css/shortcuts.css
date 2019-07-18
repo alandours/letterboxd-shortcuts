@@ -7,3 +7,8 @@
     border: 3px solid #00e054 !important;
     background: rgb(0, 224, 84, 0.25);
 }
+
+.lbs-selected-diary-film{
+    box-shadow: inset 0 0 0 2px #00e056;
+    background: rgb(0, 224, 84, 0.1);
+}
