@@ -17,7 +17,13 @@
   "content_scripts": [
     {
       "matches": ["*://*.letterboxd.com/film/*"],
-      "js": ["shortcutsFilm.js"]
+      "js": ["shortcutsMain.js", "shortcutsFilm.js"]
+    },
+    {
+      "matches": ["*://*.letterboxd.com/*"],
+      "exclude_globs": ["*letterboxd.com/film/*"],
+      "js": ["shortcutsMain.js", "shortcutsFilmGrid.js"],
+      "css": ["shortcuts.css"]
     }
   ]
 
