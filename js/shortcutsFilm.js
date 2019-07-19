@@ -2,31 +2,31 @@ body.addEventListener('keydown', (e) => {
 
     const targetElement = e.target.tagName.toLowerCase();
 
-    if(targetElement !== 'input' && targetElement !== 'textarea' && targetElement !== 'select'){
+    if(targetElement.match(/(input|textarea|select)/) === null){
 
         const key = e.key.toLowerCase();
         
         switch(key){
         
-            case 'a':
+            case 'a':                   //Add film to watchlist
                 addToWatchlist();
                 break;
-            case 'l':
+            case 'l':                   //Like film
                 likeFilm();
                 break;
-            case 'n':
+            case 'n':                   //Log a new film     
                 logNewFilm();
                 break;
-            case 'r':
+            case 'r':                   //Review film
                 reviewFilm();
                 break;
-            case 'w':
+            case 'w':                   //Watch film
                 watchFilm();
                 break;
-            case 'enter':
+            case 'enter':               //Submit review/diary entry
                 submitReview();
                 break;
-            case 'escape':
+            case 'escape':              //Close modal window / Cancel
                 closeModal();
                 break;
         

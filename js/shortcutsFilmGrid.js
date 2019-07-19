@@ -1,36 +1,39 @@
-let films, currentFilm, index, filmsInRow;
+let films, currentFilm, index, indexPrev, filmsInRow;
 
 body.addEventListener('keydown', (e) => {
 
     const targetElement = e.target.tagName.toLowerCase();
 
-    if(targetElement !== 'input' && targetElement !== 'textarea' && targetElement !== 'select'){
+    if(targetElement.match(/(input|textarea|select)/) === null){
 
         const key = e.key.toLowerCase();
     
         switch(key){
         
-            case 'n':
+            case 'n':               //Log a new film
                 logNewFilm();
                 break;
-            case 'enter':
+            case 'enter':           //Submit review/diary entry
                 submitReview();
                 break;
-            case 'escape':
+            case 'escape':          //Close modal window / Cancel
                 closeModal();
                 break;
-            case 's':
+            case 's':               //Select/deselect films
                 toggleSelect();
                 break;
-            case 'arrowright':
+            case 'arrowright':      //Navigate films
             case 'arrowleft':
             case 'arrowup':
             case 'arrowdown':
-            case 'a':               
-            case 'l':
-            case 'r':
-            case 'w':
-            case 'z':
+            case 'home':
+            case 'end':
+                indexPrev = index;
+            case 'a':               //Add film to watchlist
+            case 'l':               //Like film
+            case 'r':               //Review film
+            case 'w':               //Watch film
+            case 'z':               //Remove film from watchlist
                 filmAction(e);
                 break;
         
@@ -45,10 +48,8 @@ const toggleSelect = () => {
     const selectedFilm = document.querySelector('.lbs-selected-film');
 
     if(selectedFilm === null){
-                                                                                                                                                                    
-        films = document.querySelectorAll('.linked-film-poster');
 
-        films = [...films].filter(f => !!f.querySelector('.overlay'));
+        films = getFilms();
 
         if(films !== null){
 
@@ -65,8 +66,6 @@ const toggleSelect = () => {
 
             }
 
-            console.log(films);
-
             index = 0;
             currentFilm = films[index];
 
@@ -80,6 +79,14 @@ const toggleSelect = () => {
 
     }
     
+}
+
+const getFilms = () => {
+
+    const films = document.querySelectorAll('.linked-film-poster');
+
+    return [...films].filter(f => !!f.querySelector('.overlay'));
+
 }
 
 const getFilmSize = (film) => {
@@ -99,8 +106,6 @@ const markAsSelected = (currentFilm) => {
     }
 
     currentFilm.querySelector('.overlay').classList.add('lbs-selected-film');
-
-    console.log(currentFilm);
 
 }
 
@@ -128,6 +133,12 @@ const filmAction = (e) => {
             case 'arrowdown':
                 index = (index + filmsInRow) <= (films.length - 1) ? index + filmsInRow : index;
                 break;
+            case 'home':
+                index = 0;
+                break;
+            case 'end':
+                index = films.length;
+                break;
             case 'a':
                 addToWatchlist(currentFilm);
                 break;
@@ -146,7 +157,17 @@ const filmAction = (e) => {
 
         }
 
-        if(e.keyCode >= 37 || e.keyCode <= 40){
+        if(e.keyCode >= 35 || e.keyCode <= 40){
+
+            const carouselNav = document.querySelector('#popular-films .carousel-nav');
+
+            if(carouselNav !== null){
+
+                moveCarousel(); //Film carousel in /films
+                
+            }
+
+            films = getFilms();
         
             currentFilm = films[index];
             markAsSelected(currentFilm);
@@ -249,6 +270,37 @@ const createPopOutMenu = (film, button) => {
         actionsMenu.dispatchEvent(mouseOverEvent);
         actionsMenu.dispatchEvent(mouseOutEvent);
 
+    }
+
+}
+
+const moveCarousel = () => {
+
+    switch(index){
+        case 4:        //First film of page 2
+        case 8:        //First film of page 3
+        case 12:       //First film of page 4
+        case 16:       //First film of page 5
+
+            if(index > indexPrev){
+
+                document.querySelector('.carousel-next > a').click();
+
+            }
+            
+            break;
+        case 3:        //Last film of page 1
+        case 7:        //Last film of page 2
+        case 11:       //Last film of page 3
+        case 15:       //Last film of page 4
+
+            if(index < indexPrev){
+
+                document.querySelector('.carousel-prev > a').click();
+
+            }
+            
+            break;
     }
 
 }

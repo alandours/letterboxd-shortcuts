@@ -5,37 +5,38 @@ body.addEventListener('keydown', (e) => {
 
     const targetElement = e.target.tagName.toLowerCase();
 
-    if(targetElement !== 'input' && targetElement !== 'textarea' && targetElement !== 'select'){
+    if(targetElement.match(/(input|textarea|select)/) === null){
 
         const key = e.key.toLowerCase();
     
         switch(key){
         
-            case 'n':
+            case 'n':               //Log a new film
                 logNewFilm();
                 break;
-            case 'enter':
+            case 'enter':           //Submit review/diary entry
                 submitReview();
                 break;
-            case 'escape':
+            case 'escape':          //Close modal window / Cancel
                 closeModal();
                 break;
-            case 'd':
+            case 'd':               //Delete review/diary entry / Confirm deletion
+            case 'delete':
                 deleteReview();
                 break;
-            case 's':
+            case 's':               //Select/deselect films
                 toggleSelect();
                 break;
-            case 'arrowright':
+            case 'arrowright':      //Navigate films
             case 'arrowleft':
             case 'arrowup':
             case 'arrowdown':
-            case 'a':
-            case 'e':            
-            case 'l':
-            case 'r':
-            case 'w':
-            case 'z':
+            case 'a':               //Add film to watchlist
+            case 'e':               //Edit film review/diary entry
+            case 'l':               //Like film
+            case 'r':               //Review film
+            case 'w':               //Watch film
+            case 'z':               //Remove film from watchlist
                 filmAction(e);
                 break;
         
@@ -173,19 +174,11 @@ const addToWatchlist = (film) => {
 
     const filmId = film.querySelector('.linked-film-poster').getAttribute('data-film-id');
 
-    console.log(filmId);
-
     let addButton = document.querySelector(`.add-to-watchlist[data-film-id="${filmId}"]`);
-
-    console.log(addButton);
 
     createPopOutMenu(film, addButton);
 
-    console.log(addButton);
-
     addButton = document.querySelector(`.add-to-watchlist[data-film-id="${filmId}"]`);
-
-    console.log(addButton);
 
     if(addButton !== null){
 
