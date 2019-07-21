@@ -13,9 +13,6 @@ body.addEventListener('keydown', (e) => {
             case 'n':               //Log a new film
                 logNewFilm();
                 break;
-            case 'enter':           //Submit review/diary entry
-                submitReview();
-                break;
             case 'escape':          //Close modal window / Cancel
                 closeModal();
                 break;
@@ -34,6 +31,7 @@ body.addEventListener('keydown', (e) => {
             case 'r':               //Review film
             case 'w':               //Watch film
             case 'z':               //Remove film from watchlist
+            case 'enter':           //Go to film/submit review/diary entry
                 filmAction(e);
                 break;
         
@@ -153,6 +151,9 @@ const filmAction = (e) => {
                 break;
             case 'z':
                 removeFromWatchlist(currentFilm);
+                break;
+            case 'enter':
+                handleEnter(currentFilm);
                 break;
 
         }

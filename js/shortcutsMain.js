@@ -53,3 +53,48 @@ const deleteReview = () => {
     }
 
 }
+
+
+const goToFilm = (film) => {
+
+    const selectedFilm = document.querySelector('.lbs-selected-film');
+    const selectedFilmDiary = document.querySelector('.lbs-selected-diary-film');
+
+    if(selectedFilm !== null || selectedFilmDiary !== null){
+
+        if(selectedFilmDiary !== null){
+
+            film = film.querySelector('.linked-film-poster');
+
+        }
+
+        if(film.dataset.targetLink){
+
+            location.href = film.dataset.targetLink;
+
+        }else{
+
+            location.href = film.dataset.filmLink;
+
+        }
+
+    }
+
+}
+
+const handleEnter = (film) => {
+
+    const reviewWindow = document.querySelector('#modal > #add-film.expanded');
+    const confirmWindow = document.querySelector('#confirm-modal');
+
+    if(reviewWindow !== null && confirmWindow === null){
+        
+        submitReview();
+
+    }else{
+
+        goToFilm(film);
+
+    }
+
+}
