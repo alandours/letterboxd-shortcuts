@@ -1,3 +1,5 @@
+const token = document.querySelector('input[name="__csrf"]').value;
+
 body.addEventListener('keydown', (e) => {
 
     const targetElement = e.target.tagName.toLowerCase();
@@ -28,6 +30,20 @@ body.addEventListener('keydown', (e) => {
                 break;
             case 'escape':              //Close modal window / Cancel
                 closeModal();
+                break;
+            case 'backspace':           //Rate film
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+            case '5':
+            case '5':
+            case '6':
+            case '7':
+            case '8':
+            case '9':
+            case '0':
+                rateFilm(e, key);
                 break;
         
         }
@@ -77,5 +93,63 @@ const watchFilm = () => {
     const watchButton = document.querySelector('.ajax-click-action.-watch');
 
     watchButton.click();
+
+}
+
+
+
+const rateFilm = (e, rating) => {
+
+    e.preventDefault();
+
+    const filmUrl = document.querySelector('#userpanel .rateit').dataset.rateAction;
+    
+    rating = rating == 0 ? 10 : rating;
+    rating = rating === 'backspace' ? 0 : rating;
+
+    const ratingData = new FormData();
+
+    ratingData.append('rating', rating);
+    ratingData.append('__csrf', token);
+
+    fetch('https://www.letterboxd.com' + filmUrl, {
+        method: 'post',
+        body: ratingData
+    })
+    .then(response => response.json())
+    .then(response => {
+
+        if(response.result){
+
+            const starWidth = 18;
+            const stars = document.querySelector('#userpanel .rateit-selected');
+
+            stars.style.width = rating * starWidth + 'px';
+            
+            const label = document.querySelector('#userpanel .rateit-label');
+
+            if(label.innerHTML.toLowerCase() === 'rate' && rating !== 0){
+                label.innerHTML = 'Rated';
+            }
+
+            const markedAsWatched = document.querySelector('#userpanel .film-watch-link.-watched');
+
+            if(markedAsWatched === null){
+                watchFilm();
+            }
+
+            if(rating === 0){
+
+                const removeLink = document.querySelector('#userpanel .remove-sidebar-rating');
+
+                removeLink.parentNode.removeChild(removeLink);
+
+                label.innerHTML = 'Rate';
+
+            }
+
+        }
+
+    });
 
 }
