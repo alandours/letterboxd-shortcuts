@@ -1,5 +1,3 @@
-const token = document.querySelector('input[name="__csrf"]').value;
-
 body.addEventListener('keydown', (e) => {
 
     const targetElement = e.target.tagName.toLowerCase();
@@ -12,6 +10,9 @@ body.addEventListener('keydown', (e) => {
         
             case 'a':                   //Add film to watchlist
                 addToWatchlist();
+                break;
+            case 'i':
+                addToList();            //Add film to a list
                 break;
             case 'l':                   //Like film
                 likeFilm();
@@ -31,7 +32,7 @@ body.addEventListener('keydown', (e) => {
             case 'escape':              //Close modal window / Cancel
                 closeModal();
                 break;
-            case 'backspace':           //Rate film
+            case 'z':                   //Rate film
             case '1':
             case '2':
             case '3':
@@ -62,11 +63,19 @@ const addToWatchlist = () => {
 
 }
 
+const addToList = () => {
+
+    const addToListButton = document.querySelector('.menu-item-add-to-list');
+
+    addToListButton.click();
+
+}
+
 const likeFilm = () => {
 
     const reviewWindow = document.querySelector('#modal > #add-film.expanded');
 
-    if(reviewWindow != null){
+    if(reviewWindow !== null){
 
         reviewWindow.querySelector('#film-like-checkbox').checked = !reviewWindow.querySelector('#film-like-checkbox').checked;
 
@@ -96,8 +105,6 @@ const watchFilm = () => {
 
 }
 
-
-
 const rateFilm = (e, rating) => {
 
     e.preventDefault();
@@ -105,7 +112,7 @@ const rateFilm = (e, rating) => {
     const filmUrl = document.querySelector('#userpanel .rateit').dataset.rateAction;
     
     rating = rating == 0 ? 10 : rating;
-    rating = rating === 'backspace' ? 0 : rating;
+    rating = rating === 'z' ? 0 : rating;
 
     const ratingData = new FormData();
 

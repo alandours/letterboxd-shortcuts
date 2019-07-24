@@ -30,11 +30,24 @@ body.addEventListener('keydown', (e) => {
             case 'arrowdown':
             case 'a':               //Add film to watchlist
             case 'e':               //Edit film review/diary entry
+            case 'i':               //Add film to a list
             case 'l':               //Like film
             case 'r':               //Review film
             case 'w':               //Watch film
-            case 'z':               //Remove film from watchlist
+            case 'x':               //Remove film from watchlist
             case 'enter':           //Go to film/submit review/diary entry
+            case 'z':               //Rate film
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+            case '5':
+            case '5':
+            case '6':
+            case '7':
+            case '8':
+            case '9':
+            case '0':
                 filmAction(e);
                 break;
         
@@ -85,12 +98,26 @@ const markAsSelected = (currentFilm) => {
 const filmAction = (e) => {
 
     const selectedFilm = document.querySelector('.lbs-selected-diary-film');
+    const reviewWindow = document.querySelector('#modal > #add-film.expanded');
 
-    if(selectedFilm !== null){
+    e.preventDefault();
 
-        e.preventDefault();
+    const key = e.key.toLowerCase();
 
-        const key = e.key.toLowerCase();
+    if(reviewWindow !== null){
+
+        switch(key){
+
+            case 'l':
+                reviewWindow.querySelector('#film-like-checkbox').checked = !reviewWindow.querySelector('#film-like-checkbox').checked;
+                break;
+            case 'enter':
+                submitReview();
+                break;
+
+        }
+
+    }else if(selectedFilm !== null){
 
         switch(key){
             
@@ -108,6 +135,9 @@ const filmAction = (e) => {
             case 'e':
                 editReview(currentFilm);
                 break;
+            case 'i':
+                addToList(currentFilm);
+                break;
             case 'l':
                 likeFilm(currentFilm);
                 break;
@@ -117,11 +147,25 @@ const filmAction = (e) => {
             case 'w':
                 watchFilm(currentFilm);
                 break;
-            case 'z':
+            case 'x':
                 removeFromWatchlist(currentFilm);
                 break;
             case 'enter':
                 handleEnter(currentFilm);
+                break;
+            case 'z':
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+            case '5':
+            case '5':
+            case '6':
+            case '7':
+            case '8':
+            case '9':
+            case '0':
+                rateFilm(currentFilm, key);
                 break;
 
         }
@@ -147,19 +191,9 @@ const editReview = (film) => {
 
 const likeFilm = (film) => {
 
-    const reviewWindow = document.querySelector('#modal > #add-film.expanded');
+    const likeButton = film.parentNode.querySelector('.like-link > .ajax-click-action');
 
-    if(reviewWindow != null){
-
-        reviewWindow.querySelector('#film-like-checkbox').checked = !reviewWindow.querySelector('#film-like-checkbox').checked;
-
-    }else{
-
-        const likeButton = film.parentNode.querySelector('.like-link > .ajax-click-action');
-
-        likeButton.click();
-
-    }
+    likeButton.click();
 
 }
 
@@ -173,7 +207,7 @@ const watchFilm = (film) => {
 
 const addToWatchlist = (film) => {
 
-    const filmId = film.querySelector('.linked-film-poster').getAttribute('data-film-id');
+    const filmId = film.querySelector('.linked-film-poster').dataset.filmId;
 
     let addButton = document.querySelector(`.add-to-watchlist[data-film-id="${filmId}"]`);
 
@@ -189,9 +223,27 @@ const addToWatchlist = (film) => {
 
 }
 
+const addToList = (film) => {
+
+    const filmId = film.querySelector('.linked-film-poster').dataset.filmId;
+
+    let addToListButton = document.querySelector(`.menu-item-add-to-list[data-film-id="${filmId}"]`);
+
+    createPopOutMenu(film, addToListButton);
+
+    addToListButton = document.querySelector(`.menu-item-add-to-list[data-film-id="${filmId}"]`);
+
+    if(addToListButton !== null){
+
+        addToListButton.click();
+
+    }
+    
+}
+
 const removeFromWatchlist = (film) => {
 
-    const filmId = film.querySelector('.linked-film-poster').getAttribute('data-film-id');
+    const filmId = film.querySelector('.linked-film-poster').dataset.filmId;
 
     let removeButton = document.querySelector(`.remove-from-watchlist[data-film-id="${filmId}"]`);
 
@@ -209,7 +261,7 @@ const removeFromWatchlist = (film) => {
 
 const reviewFilm = (film) => {
 
-    const filmId = film.querySelector('.linked-film-poster').getAttribute('data-film-id');
+    const filmId = film.querySelector('.linked-film-poster').dataset.filmId;
 
     let reviewButton = document.querySelector(`.menu-item-add-this-film[data-film-id="${filmId}"]`);
 
@@ -238,5 +290,36 @@ const createPopOutMenu = (film, button) => {
         actionsMenu.dispatchEvent(mouseOutEvent);
 
     }
+
+}
+
+const rateFilm = (film, rating) => {
+
+    const filmUrl = film.querySelector('.linked-film-poster').dataset.rateAction;
+    
+    rating = rating == 0 ? 10 : rating;
+    rating = rating === 'z' ? 0 : rating;
+
+    const ratingData = new FormData();
+
+    ratingData.append('rating', rating);
+    ratingData.append('__csrf', token);
+
+    fetch('https://www.letterboxd.com' + filmUrl, {
+        method: 'post',
+        body: ratingData
+    })
+    .then(response => response.json())
+    .then(response => {
+
+        if(response.result){
+
+            const filmName = film.querySelector('.linked-film-poster').dataset.filmName;
+
+            console.log(filmName + ' was rated ' + rating / 2 + ' stars');
+
+        }
+
+    });
 
 }

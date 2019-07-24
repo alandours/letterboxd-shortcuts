@@ -1,3 +1,5 @@
+const token = document.querySelector('input[name="__csrf"]').value;
+
 const body = document.getElementsByTagName('body')[0];
 
 const logNewFilm = () => {
