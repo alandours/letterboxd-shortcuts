@@ -5,7 +5,7 @@
 
 Keyboard shortcuts for Letterboxd. Try it on [Firefox](https://addons.mozilla.org/firefox/addon/letterboxd-shortcuts) or [Chrome](https://chrome.google.com/webstore/detail/letterboxd-shortcuts/lpopedcebfdkhelkoiakllmilggjcope).
 
-### Log/review
+### Log/review films
 
 Shortcuts for logging/reviewing films.
 
@@ -18,7 +18,7 @@ Shortcuts for logging/reviewing films.
 
 ### Selecting films
 
-Shortcuts that work in any page that has films.
+Shortcuts that work on any page that has films.
 
 |  Key  | Action | 
 |-------|--------|
@@ -40,7 +40,7 @@ Shortcuts that only work on film pages or when a film is selected.
 | `X` | Remove the selected film from the watchlist *(only when a film is selected)*
 | `R` | Review/log film
 | `I` | Add film to a list
-| `0-9` | Rate film <br> Numbers `1` to `9` equals ½ ★ each <br> `0` equals ★★★★★
+| `0-9` | Rate film <br> Numbers `1` to `9` equals to  ½ ★ each <br> `0` equals ★★★★★
 | `Z` | Remove rating
 
 
@@ -51,4 +51,4 @@ Shortcuts that only work when viewing your own diary page.
 |  Key  | Action | 
 |-------|--------|
 | `E` | Edit the selected review/diary entry
-| `D` or `Delete`| Delete the selected review/diary entry <br> Confirm deleting review/diary
+| `D` or `Delete`| Delete the selected review/diary entry <br> Confirm deleting review/diary entry

@@ -1,7 +1,5 @@
 let films, currentFilm, index, indexPrev, filmsInRow;
 
-console.log('aaaaaaaa');
-
 body.addEventListener('keydown', (e) => {
 
     const targetElement = e.target.tagName.toLowerCase();
@@ -379,9 +377,17 @@ const rateFilm = (film, rating) => {
 
         if(response.result){
 
-            const filmName = film.dataset.filmName;
+            const actionsMenu = film.querySelector('.has-menu');
 
-            console.log(filmName + ' was rated ' + rating / 2 + ' stars');
+            const lastIndex = actionsMenu.dataset.originalTitle.lastIndexOf(')');
+
+            const title = actionsMenu.dataset.originalTitle.substring(0, lastIndex + 1);
+
+            let starsTitle = '★'.repeat(Math.floor(rating / 2))
+
+            starsTitle = rating % 2 > 0 ? starsTitle + '½' : starsTitle;
+
+            actionsMenu.dataset.originalTitle = title + ' ' + starsTitle;
 
         }
 
