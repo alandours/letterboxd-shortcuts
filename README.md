@@ -2,6 +2,7 @@
 
 ![Firefox downloads](https://img.shields.io/amo/dw/letterboxd-shortcuts.svg 'Firefox downloads')
 ![Firefox users](https://img.shields.io/amo/users/letterboxd-shortcuts.svg 'Firefox users')
+![Chrome users](https://img.shields.io/chrome-web-store/users/lpopedcebfdkhelkoiakllmilggjcope 'Chrome users')
 
 Keyboard shortcuts for Letterboxd. Try it on [Firefox](https://addons.mozilla.org/firefox/addon/letterboxd-shortcuts) or [Chrome](https://chrome.google.com/webstore/detail/letterboxd-shortcuts/lpopedcebfdkhelkoiakllmilggjcope).
 
