@@ -1,102 +1,57 @@
 const token = document.querySelector('input[name="__csrf"]').value;
-
 const body = document.getElementsByTagName('body')[0];
 
+const letterboxdUrl = window.location.origin;
+
 const logNewFilm = () => {
-
-    const logButton = document.querySelector('#add-new-button');
-
-    if(logButton !== null){
-
-        logButton.click();
-
-    }
-
-}
+  const logButton = document.querySelector('#add-new-button');
+  return logButton && logButton.click();
+};
 
 const closeModal = () => {
-
-    const closeButton = document.querySelector('#cboxClose');
-
-    if(closeButton != null){
-
-        closeButton.click();
-
-    }
-
-}
+  const closeButton = document.querySelector('#cboxClose');
+  return closeButton && closeButton.click();
+};
 
 const submitReview = () => {
+  const reviewWindow = document.querySelector('#modal > #add-film.expanded');
+  const confirmWindow = document.querySelector('#confirm-modal');
 
-    const reviewWindow = document.querySelector('#modal > #add-film.expanded');
-    const confirmWindow = document.querySelector('#confirm-modal');
-
-    if(reviewWindow !== null && confirmWindow === null){
-
-        document.querySelector('#diary-entry-submit-button').click();
-
-    }
-
-}
+  if (reviewWindow && !confirmWindow) {
+    const submitButton = document.querySelector('#diary-entry-submit-button');
+    return submitButton && submitButton.click();
+  }
+};
 
 const deleteReview = () => {
+  const reviewWindow = document.querySelector('#modal > #add-film.expanded');
+  const confirmWindow = document.querySelector('#confirm-modal');
 
-    const reviewWindow = document.querySelector('#modal > #add-film.expanded');
-    const confirmWindow = document.querySelector('#confirm-modal');
-
-    if(confirmWindow !== null){
-
-        document.querySelector('.-destructive.right.-red').click();
-
-    }else if(reviewWindow !== null){
-
-        document.querySelector('#diary-entry-delete-button').click();
-
-    }
-
-}
-
+  if (confirmWindow) {
+    const confirmButton = document.querySelector('.-destructive.right.-red')
+    return confirmButton && confirmButton.click();
+  } else if(reviewWindow) {
+    const deleteReviewButton = document.querySelector('#diary-entry-delete-button');
+    return deleteReviewButton && deleteReviewButton.click();
+  }
+};
 
 const goToFilm = (film) => {
+  const selectedFilm = document.querySelector('.lbs-selected-film');
+  const selectedFilmDiary = document.querySelector('.lbs-selected-diary-film');
 
-    const selectedFilm = document.querySelector('.lbs-selected-film');
-    const selectedFilmDiary = document.querySelector('.lbs-selected-diary-film');
+  if (selectedFilm || selectedFilmDiary) {
+    if (selectedFilmDiary)
+      film = film.querySelector('.linked-film-poster');
 
-    if(selectedFilm !== null || selectedFilmDiary !== null){
+    if (!film) return;
 
-        if(selectedFilmDiary !== null){
-
-            film = film.querySelector('.linked-film-poster');
-
-        }
-
-        if(film.dataset.targetLink){
-
-            location.href = film.dataset.targetLink;
-
-        }else{
-
-            location.href = film.dataset.filmLink;
-
-        }
-
-    }
-
-}
+    location.href = film.dataset.targetLink ? film.dataset.targetLink : film.dataset.filmLink;
+  }
+};
 
 const handleEnter = (film) => {
-
-    const reviewWindow = document.querySelector('#modal > #add-film.expanded');
-    const confirmWindow = document.querySelector('#confirm-modal');
-
-    if(reviewWindow !== null && confirmWindow === null){
-        
-        submitReview();
-
-    }else{
-
-        goToFilm(film);
-
-    }
-
-}
+  const reviewWindow = document.querySelector('#modal > #add-film.expanded');
+  const confirmWindow = document.querySelector('#confirm-modal');
+  return reviewWindow && !confirmWindow ? submitReview() : goToFilm(film);
+};

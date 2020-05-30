@@ -3,7 +3,7 @@
   "manifest_version": 2,
   "name": "Letterboxd Shortcuts",
   "description": "Keyboard shortcuts for Letterboxd.",
-  "version": "1.0",
+  "version": "1.1",
 
   "permissions": [
     "contextMenus",
@@ -28,7 +28,8 @@
       "css": ["css/shortcuts.css"]
     },
     {
-      "matches": ["*://*.letterboxd.com/film/*"],
+      "matches": ["*://*.letterboxd.com/*"],
+      "include_globs": ["*letterboxd.com/film/*", "*letterboxd.com/*/film/*"],
       "js": ["js/shortcutsMain.js", "js/shortcutsFilm.js"]
     },
     {
