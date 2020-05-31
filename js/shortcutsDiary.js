@@ -18,7 +18,7 @@ body.addEventListener('keydown', (e) => {
       case 'delete':
         deleteReview();
         break;
-      case 's':               //Select/deselect films
+      case 's':           //Select/deselect films
         toggleSelect();
         break;
       default:
@@ -103,7 +103,7 @@ const filmAction = (e, key) => {
 const toggleSelect = () => {
   const selectedFilm = document.querySelector('.lbs-selected-diary-film');
 
-  if (selectedFilm) {                                                                                                                                                             
+  if (!selectedFilm) {                                                                                                                                                             
     films = document.querySelectorAll('.td-film-details');
 
     if (films.length) {
