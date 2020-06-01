@@ -33,7 +33,7 @@
     },
     {
       "matches": ["*://*.letterboxd.com/*"],
-      "exclude_globs": ["*letterboxd.com/film/*", "*letterboxd.com/*/films/diary*", "*letterboxd.com/*/tag/*/diary*"],
+      "exclude_globs": ["*letterboxd.com/film/*", "*letterboxd.com/*/film/*", "*letterboxd.com/*/films/diary*", "*letterboxd.com/*/tag/*/diary*"],
       "js": ["js/shortcutsMain.js", "js/shortcutsFilmGrid.js"],
       "css": ["css/shortcuts.css"]
     }
