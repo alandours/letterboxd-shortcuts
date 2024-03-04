@@ -1,57 +1,70 @@
-const token = document.querySelector('input[name="__csrf"]').value;
-const body = document.getElementsByTagName('body')[0];
+const LETTERBOXD_URL = window.location.origin;
 
-const letterboxdUrl = window.location.origin;
+const getByFilm = (className, filmId) => document.querySelector(`${className}[data-film-id="${filmId}"]`);
 
-const logNewFilm = () => {
-  const logButton = document.querySelector('#add-new-button');
-  return logButton && logButton.click();
-};
+const isFormElement = (element) => element.match(/(input|textarea|select)/);
 
-const closeModal = () => {
-  const closeButton = document.querySelector('#cboxClose');
-  return closeButton && closeButton.click();
-};
+class Letterboxd {
+  static closeModal() {
+    const closeButton = document.querySelector('#cboxClose');
+    return closeButton?.click();
+  };
 
-const submitReview = () => {
-  const reviewWindow = document.querySelector('#modal > #add-film.expanded');
-  const confirmWindow = document.querySelector('#confirm-modal');
+  static async setFilmRating(url, rating) {
+    if (!url || rating < 0 || rating > 10) return;
 
-  if (reviewWindow && !confirmWindow) {
-    const submitButton = document.querySelector('#diary-entry-submit-button');
-    return submitButton && submitButton.click();
+    const token = document.querySelector('input[name="__csrf"]').value;
+    const ratingData = new FormData();
+  
+    ratingData.set('rating', rating);
+    ratingData.set('__csrf', token);
+
+    const response = await fetch(url, {
+      method: 'POST',
+      body: ratingData
+    });
+
+    const jsonResponse = await response.json();
+
+    return jsonResponse;
   }
-};
 
-const deleteReview = () => {
-  const reviewWindow = document.querySelector('#modal > #add-film.expanded');
-  const confirmWindow = document.querySelector('#confirm-modal');
+  static goToFilm(film) {
+    const selectedFilm = document.querySelector('.lbs-selected-film');
+    const selectedFilmDiary = document.querySelector('.lbs-selected-diary-film');
+  
+    if (selectedFilm || selectedFilmDiary) {
+      let filmItem = film;
 
-  if (confirmWindow) {
-    const confirmButton = document.querySelector('.-destructive.right.-red')
-    return confirmButton && confirmButton.click();
-  } else if(reviewWindow) {
-    const deleteReviewButton = document.querySelector('#diary-entry-delete-button');
-    return deleteReviewButton && deleteReviewButton.click();
-  }
-};
+      if (selectedFilmDiary) {
+        filmItem = film.querySelector('.linked-film-poster');
+      }
+  
+      if (!filmItem) return;
+  
+      location.href = film.dataset.targetLink || film.dataset.filmLink;
+    }
+  };
 
-const goToFilm = (film) => {
-  const selectedFilm = document.querySelector('.lbs-selected-film');
-  const selectedFilmDiary = document.querySelector('.lbs-selected-diary-film');
+  static handleEnter(film) {
+    const reviewWindow = document.querySelector('#modal > #add-film.expanded');
+    const confirmWindow = document.querySelector('#confirm-modal');
+    return reviewWindow && !confirmWindow ? Letterboxd.submitReview() : Letterboxd.goToFilm(film);
+  };
 
-  if (selectedFilm || selectedFilmDiary) {
-    if (selectedFilmDiary)
-      film = film.querySelector('.linked-film-poster');
+  static logNewFilm() {
+    const logButton = document.querySelector('#add-new-button');
+    return logButton?.click();
+  };
 
-    if (!film) return;
+  static submitReview() {
+    const reviewWindow = document.querySelector('#modal > #add-film.expanded');
+    const confirmWindow = document.querySelector('#confirm-modal');
+  
+    if (reviewWindow && !confirmWindow) {
+      const submitButton = document.querySelector('#diary-entry-submit-button');
+      return submitButton?.click();
+    }
+  };
+}
 
-    location.href = film.dataset.targetLink ? film.dataset.targetLink : film.dataset.filmLink;
-  }
-};
-
-const handleEnter = (film) => {
-  const reviewWindow = document.querySelector('#modal > #add-film.expanded');
-  const confirmWindow = document.querySelector('#confirm-modal');
-  return reviewWindow && !confirmWindow ? submitReview() : goToFilm(film);
-};
