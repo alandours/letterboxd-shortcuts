@@ -1,16 +1,7 @@
 class Film {
-
   static addToList() {
     const addToListButton = document.querySelector('.menu-item-add-to-list');
     return addToListButton?.click();
-  };
-
-  static addToWatchlist() {
-    const watchlistButtons = document.querySelectorAll('.ajax-click-action.-watchlist');
-    if (!watchlistButtons.length) return;
-  
-    const addButton = watchlistButtons[0].parentNode.classList.contains('hidden') ? watchlistButtons[1] : watchlistButtons[0];
-    return addButton?.click();
   };
 
   static like() {
@@ -70,6 +61,14 @@ class Film {
     const watchButton = document.querySelector('.ajax-click-action.-watch');
     return watchButton?.click();
   };
+
+  static watchlistToggle() {
+    const watchlistButtons = document.querySelectorAll('.ajax-click-action.-watchlist');
+    if (!watchlistButtons.length) return;
+  
+    const addButton = watchlistButtons[0].parentNode.classList.contains('hidden') ? watchlistButtons[1] : watchlistButtons[0];
+    return addButton?.click();
+  };
 }
 
 document.body.addEventListener('keydown', (e) => {
@@ -80,7 +79,7 @@ document.body.addEventListener('keydown', (e) => {
 
     switch(key){
       case 'a':
-        Film.addToWatchlist();
+        Film.watchlistToggle();
         break;
       case 'i':
         Film.addToList();
@@ -89,7 +88,7 @@ document.body.addEventListener('keydown', (e) => {
         Film.like();
         break;
       case 'n':     
-        logNewFilm();
+        Letterboxd.logNewFilm();
         break;
       case 'r':
         Film.review();

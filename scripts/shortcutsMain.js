@@ -10,6 +10,18 @@ class Letterboxd {
     return closeButton?.click();
   };
 
+  static createPopOutMenu(film, button) {
+    if (!button){
+      const mouseOverEvent = new MouseEvent('mouseover');
+      const mouseOutEvent = new MouseEvent('mouseout');
+  
+      const actionsMenu = film.querySelector('.has-menu');
+  
+      actionsMenu.dispatchEvent(mouseOverEvent);
+      actionsMenu.dispatchEvent(mouseOutEvent);
+    }
+  };
+
   static async setFilmRating(url, rating) {
     if (!url || rating < 0 || rating > 10) return;
 

@@ -2,7 +2,7 @@ class Film {
   static addToList(film) {
     const filmId = film.querySelector('.linked-film-poster').dataset.filmId;
     const addToListButton = document.querySelector(`.menu-item-add-to-list[data-film-id="${filmId}"]`);
-    Diary.createPopOutMenu(film, addToListButton);
+    Letterboxd.createPopOutMenu(film, addToListButton);
     return addToListButton?.click();
   };
 
@@ -30,7 +30,7 @@ class Film {
   static review(film) {
     const filmId = film.querySelector('.linked-film-poster').dataset.filmId;
     const reviewButton = document.querySelector(`.menu-item-add-this-film[data-film-id="${filmId}"]`);
-    Diary.createPopOutMenu(film, reviewButton);
+    Letterboxd.createPopOutMenu(film, reviewButton);
     return reviewButton?.click()
   };
   
@@ -42,14 +42,14 @@ class Film {
   static watchlistAdd(film) {
     const filmId = film.querySelector('.linked-film-poster').dataset.filmId;
     const addButton = document.querySelector(`.add-to-watchlist[data-film-id="${filmId}"]`);
-    Diary.createPopOutMenu(film, addButton);
+    Letterboxd.createPopOutMenu(film, addButton);
     return addButton?.click();
   };
   
   static watchlistRemove(film) {
     const filmId = film.querySelector('.linked-film-poster').dataset.filmId;
     const removeButton = document.querySelector(`.remove-from-watchlist[data-film-id="${filmId}"]`);
-    Diary.createPopOutMenu(film, removeButton);
+    Letterboxd.createPopOutMenu(film, removeButton);
     return removeButton?.click();
   };
 }
@@ -135,18 +135,6 @@ class Diary {
         Diary.selectedFilm = Diary.films[Diary.filmIndex];
         Diary.selectFilm(Diary.selectedFilm);
       }
-    }
-  };
-
-  static createPopOutMenu(film, button) {
-    if (!button) {
-      const mouseOverEvent = new MouseEvent('mouseover');
-      const mouseOutEvent = new MouseEvent('mouseout');
-  
-      const actionsMenu = film.parentNode.querySelector('.has-menu');
-  
-      actionsMenu.dispatchEvent(mouseOverEvent);
-      actionsMenu.dispatchEvent(mouseOutEvent);
     }
   };
 

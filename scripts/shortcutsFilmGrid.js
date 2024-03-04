@@ -1,7 +1,7 @@
 class Film {
   static addToList(film) {
     const addToListButton = getByFilm('.menu-item-add-to-list', film.dataset.filmId);
-    Grid.createPopOutMenu(film, addToListButton);
+    Letterboxd.createPopOutMenu(film, addToListButton);
     return addToListButton?.click(); 
   }
 
@@ -27,7 +27,7 @@ class Film {
 
   static review(film) {
     const reviewButton = getByFilm('.menu-item-add-this-film', film.dataset.filmId);
-    Grid.createPopOutMenu(film, reviewButton);
+    Letterboxd.createPopOutMenu(film, reviewButton);
     return reviewButton?.click();
   }
 
@@ -38,13 +38,13 @@ class Film {
 
   static watchlistAdd(film) {
     const addButton = getByFilm('.add-to-watchlist', film.dataset.filmId);
-    Grid.createPopOutMenu(film, addButton);
+    Letterboxd.createPopOutMenu(film, addButton);
     return addButton?.click();
   }
 
   static watchlistRemove(film) {
     const removeButton = getByFilm('.remove-from-watchlist', film.dataset.filmId);
-    Grid.createPopOutMenu(film, removeButton);
+    Letterboxd.createPopOutMenu(film, removeButton);
     return removeButton?.click();
   }
 
@@ -154,18 +154,6 @@ class Grid {
       }
     }
   }
-
-  static createPopOutMenu(film, button) {
-    if (!button){
-      const mouseOverEvent = new MouseEvent('mouseover');
-      const mouseOutEvent = new MouseEvent('mouseout');
-  
-      const actionsMenu = film.querySelector('.has-menu');
-  
-      actionsMenu.dispatchEvent(mouseOverEvent);
-      actionsMenu.dispatchEvent(mouseOutEvent);
-    }
-  };
 
   static getFilms() {
     const filmsItems = document.querySelectorAll('.linked-film-poster');
