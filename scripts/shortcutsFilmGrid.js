@@ -5,18 +5,13 @@ class Film {
     return addToListButton?.click(); 
   }
 
-  static getRateUrl(film) {
-    const rateUrl = film?.dataset?.rateAction;
-    return rateUrl && `${LETTERBOXD_URL}${rateUrl}`;
-  };
-
   static like(film) {
     const likeButton = film.querySelector('.like-link-target .ajax-click-action');
     return likeButton?.click();
   }
 
   static async rate(film, rating) {
-    const rateUrl = Film.getRateUrl(film);
+    const rateUrl = Letterboxd.getRateUrl(film);
     const ratedFilm = await Letterboxd.setFilmRating(rateUrl, rating);
 
     if (ratedFilm?.result) {

@@ -11,14 +11,8 @@ class Film {
     return likeButton?.click();
   };
 
-  static getRateUrl(film) {
-    const linkedFilmPoster = film?.querySelector('.linked-film-poster');
-    const rateUrl = linkedFilmPoster?.dataset?.rateAction;
-    return rateUrl && `${LETTERBOXD_URL}${rateUrl}`;
-  };
-  
   static async rate(film, rating) {
-    const rateUrl = Film.getRateUrl(film);
+    const rateUrl = Letterboxd.getRateUrl(film?.querySelector('.linked-film-poster'));
     const ratedFilm = await Letterboxd.setFilmRating(rateUrl, rating);
 
     if (ratedFilm?.result) {
@@ -34,7 +28,7 @@ class Film {
     return reviewButton?.click()
   };
   
-  static watchFilm(film) {
+  static watch(film) {
     const watchButton = film.parentNode.querySelector('.film-watch-link > .ajax-click-action');
     return watchButton?.click();
   };
@@ -52,6 +46,12 @@ class Film {
     Letterboxd.createPopOutMenu(film, removeButton);
     return removeButton?.click();
   };
+
+  static watchlistToggle(film) {
+    const filmId = film.querySelector('.linked-film-poster').dataset.filmId;
+    const notInWatchlist = getByFilm('.not-in-watchlist', filmId);
+    return notInWatchlist ? Film.watchlistAdd(film) : Film.watchlistRemove(film)
+  }
 }
 
 class Diary {
@@ -88,7 +88,7 @@ class Diary {
           Diary.filmIndex = Diary.filmIndex > 0 ? Diary.filmIndex - 1 : 0;
           break;
         case 'a':
-          Film.watchlistAdd(Diary.selectedFilm);
+          Film.watchlistToggle(Diary.selectedFilm);
           break;
         case 'e':
           Diary.editReview(Diary.selectedFilm);

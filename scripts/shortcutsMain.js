@@ -22,23 +22,9 @@ class Letterboxd {
     }
   };
 
-  static async setFilmRating(url, rating) {
-    if (!url || rating < 0 || rating > 10) return;
-
-    const token = document.querySelector('input[name="__csrf"]').value;
-    const ratingData = new FormData();
-  
-    ratingData.set('rating', rating);
-    ratingData.set('__csrf', token);
-
-    const response = await fetch(url, {
-      method: 'POST',
-      body: ratingData
-    });
-
-    const jsonResponse = await response.json();
-
-    return jsonResponse;
+  static getRateUrl(element) {
+    const rateUrl = element?.dataset?.rateAction;
+    return rateUrl && `${LETTERBOXD_URL}${rateUrl}`;
   }
 
   static goToFilm(film) {
@@ -68,6 +54,25 @@ class Letterboxd {
     const logButton = document.querySelector('#add-new-button');
     return logButton?.click();
   };
+
+  static async setFilmRating(url, rating) {
+    if (!url || rating < 0 || rating > 10) return;
+
+    const token = document.querySelector('input[name="__csrf"]').value;
+    const ratingData = new FormData();
+  
+    ratingData.set('rating', rating);
+    ratingData.set('__csrf', token);
+
+    const response = await fetch(url, {
+      method: 'POST',
+      body: ratingData
+    });
+
+    const jsonResponse = await response.json();
+
+    return jsonResponse;
+  }
 
   static submitReview() {
     const reviewWindow = document.querySelector('#modal > #add-film.expanded');

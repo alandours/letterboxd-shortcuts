@@ -16,16 +16,10 @@ class Film {
     }
   };
 
-  static getRateUrl() {
-    const rateIt = document.querySelector('#userpanel .rateit');
-    const rateUrl = rateIt?.dataset?.rateAction;
-    return rateUrl && `${LETTERBOXD_URL}${rateUrl}`;
-  };
-
   static async rate(e, rating) {
     e.preventDefault();
 
-    const rateUrl = Film.getRateUrl();
+    const rateUrl = Letterboxd.getRateUrl(document.querySelector('#userpanel .rateit'));
     const ratedFilm = await Letterboxd.setFilmRating(rateUrl, rating);
 
     if (ratedFilm?.result) {
