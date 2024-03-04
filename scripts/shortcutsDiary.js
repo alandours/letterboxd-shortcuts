@@ -8,17 +8,21 @@ body.addEventListener('keydown', (e) => {
     const key = e.key.toLowerCase();
 
     switch(key) {
-      case 'n':               //Log a new film
+      case 'n':
+        // Log a new film
         logNewFilm();
         break;
-      case 'escape':          //Close modal window / Cancel
+      case 'escape':
+        // Close modal window / Cancel
         closeModal();
         break;
-      case 'd':               //Delete review/diary entry / Confirm deletion
+      case 'd':
       case 'delete':
+        // Delete review/diary entry / Confirm deletion
         deleteReview();
         break;
-      case 's':           //Select/deselect films
+      case 's':
+        // Select/deselect films
         toggleSelect();
         break;
       default:

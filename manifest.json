@@ -1,38 +1,39 @@
 {
-
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Letterboxd Shortcuts",
   "description": "Keyboard shortcuts for Letterboxd.",
-  "version": "1.1.3",
-
+  "version": "2.0.0",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{42aa0554-ddb5-48b3-bf37-10d59ff2c48d}"
+    }
+  },
   "icons": {
     "16": "icons/icon-16.png",
     "32": "icons/icon-32.png",
     "48": "icons/icon-48.png"
   },
-
   "background": {
+    "service_worker": "background.js",
     "scripts": ["background.js"]
   },
-  
   "content_scripts": [
     {
       "matches": ["*://*.letterboxd.com/*"],
       "include_globs": ["*letterboxd.com/*/films/diary*", "*letterboxd.com/*/tag/*/diary*"],
-      "js": ["js/shortcutsMain.js", "js/shortcutsDiary.js"],
-      "css": ["css/shortcuts.css"]
+      "js": ["scripts/shortcutsMain.js", "scripts/shortcutsDiary.js"],
+      "css": ["styles/shortcuts.css"]
     },
     {
       "matches": ["*://*.letterboxd.com/*"],
       "include_globs": ["*letterboxd.com/film/*", "*letterboxd.com/*/film/*"],
-      "js": ["js/shortcutsMain.js", "js/shortcutsFilm.js"]
+      "js": ["scripts/shortcutsMain.js", "scripts/shortcutsFilm.js"]
     },
     {
       "matches": ["*://*.letterboxd.com/*"],
       "exclude_globs": ["*letterboxd.com/film/*", "*letterboxd.com/*/film/*", "*letterboxd.com/*/films/diary*", "*letterboxd.com/*/tag/*/diary*"],
-      "js": ["js/shortcutsMain.js", "js/shortcutsFilmGrid.js"],
-      "css": ["css/shortcuts.css"]
+      "js": ["scripts/shortcutsMain.js", "scripts/shortcutsFilmGrid.js"],
+      "css": ["styles/shortcuts.css"]
     }
   ]
-
 }
