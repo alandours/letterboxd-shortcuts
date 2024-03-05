@@ -46,7 +46,7 @@ class Letterboxd {
   
       if (!filmItem) return;
   
-      location.href = film.dataset.targetLink || film.dataset.filmLink;
+      location.href = filmItem.dataset.targetLink || filmItem.dataset.filmLink;
     }
   };
 
