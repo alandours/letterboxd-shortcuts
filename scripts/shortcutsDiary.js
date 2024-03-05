@@ -1,52 +1,53 @@
 class Film {
-  static addToList(film) {
-    const filmId = film.querySelector('.linked-film-poster').dataset.filmId;
-    const addToListButton = Letterboxd.createPopOutMenuButton(film, `.menu-item-add-to-list[data-film-id="${filmId}"]`);
+  static addToList(filmRow) {
+    const filmId = filmRow.querySelector('.linked-film-poster').dataset.filmId;
+    const addToListButton = Letterboxd.createPopOutMenuButton(filmRow.parentNode, `.menu-item-add-to-list[data-film-id="${filmId}"]`);
     return addToListButton?.click();
   };
 
-  static like(film) {
-    const likeButton = film.parentNode.querySelector('.like-link > .ajax-click-action');
+  static like(filmRow) {
+    const likeButton = filmRow.parentNode.querySelector('.like-link > .ajax-click-action');
     return likeButton?.click();
   };
 
-  static async rate(film, rating) {
-    const rateUrl = Letterboxd.getRateUrl(film?.querySelector('.linked-film-poster'));
+  static async rate(filmRow, rating) {
+    const film = filmRow?.querySelector('.linked-film-poster');
+    const rateUrl = Letterboxd.getRateUrl(film);
     const ratedFilm = await Letterboxd.setFilmRating(rateUrl, rating);
 
     if (ratedFilm?.result) {
-      // const filmName = film.querySelector('.linked-film-poster').dataset.filmName;
-      // console.log(filmName + ' was rated ' + rating / 2 + ' stars');
+      Film.watch(filmRow);
+      Notification.rate(film, rating);
     }
   };
 
-  static review(film) {
-    const filmId = film.querySelector('.linked-film-poster').dataset.filmId;
-    const reviewButton = Letterboxd.createPopOutMenuButton(film, `.menu-item-add-this-film[data-film-id="${filmId}"]`);
+  static review(filmRow) {
+    const filmId = filmRow.querySelector('.linked-film-poster').dataset.filmId;
+    const reviewButton = Letterboxd.createPopOutMenuButton(filmRow.parentNode, `.menu-item-add-this-film[data-film-id="${filmId}"]`);
     return reviewButton?.click()
   };
   
-  static watch(film) {
-    const watchButton = film.parentNode.querySelector('.film-watch-link > .ajax-click-action');
+  static watch(filmRow) {
+    const watchButton = filmRow.parentNode.querySelector('.film-watch-link > .ajax-click-action');
     return watchButton?.click();
   };
 
-  static watchlistAdd(film) {
-    const filmId = film.querySelector('.linked-film-poster').dataset.filmId;
-    const addButton = Letterboxd.createPopOutMenuButton(film, `.add-to-watchlist[data-film-id="${filmId}"]`);
+  static watchlistAdd(filmRow) {
+    const filmId = filmRow.querySelector('.linked-film-poster').dataset.filmId;
+    const addButton = Letterboxd.createPopOutMenuButton(filmRow.parentNode, `.add-to-watchlist[data-film-id="${filmId}"]`);
     return addButton?.click();
   };
   
-  static watchlistRemove(film) {
-    const filmId = film.querySelector('.linked-film-poster').dataset.filmId;
-    const removeButton = Letterboxd.createPopOutMenuButton(film, `.remove-from-watchlist[data-film-id="${filmId}"]`);
+  static watchlistRemove(filmRow) {
+    const filmId = filmRow.querySelector('.linked-film-poster').dataset.filmId;
+    const removeButton = Letterboxd.createPopOutMenuButton(filmRow.parentNode, `.remove-from-watchlist[data-film-id="${filmId}"]`);
     return removeButton?.click();
   };
 
-  static watchlistToggle(film) {
-    const filmId = film.querySelector('.linked-film-poster').dataset.filmId;
+  static watchlistToggle(filmRow) {
+    const filmId = filmRow.querySelector('.linked-film-poster').dataset.filmId;
     const notInWatchlist = document.querySelector(`.not-in-watchlist[data-film-id="${filmId}"]`);
-    return notInWatchlist ? Film.watchlistAdd(film) : Film.watchlistRemove(film)
+    return notInWatchlist ? Film.watchlistAdd(filmRow) : Film.watchlistRemove(filmRow)
   }
 }
 
@@ -129,7 +130,7 @@ class Diary {
   
       if (e.keyCode >= 37 || e.keyCode <= 40) {
         Diary.selectedFilm = Diary.films[Diary.filmIndex];
-        Diary.selectFilm(Diary.selectedFilm);
+        Diary.selectFilm();
       }
     }
   };
