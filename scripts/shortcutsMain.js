@@ -85,3 +85,77 @@ class Letterboxd {
   };
 }
 
+class Notification {
+  static create(content, type = 'success') {
+    let container = document.querySelector('.jnotify-container');
+
+    if (!container) {
+      container = document.createElement('div');
+      container.className = 'jnotify-container';
+      document.body.appendChild(container)
+    }
+
+    const notification = document.createElement('div');
+    notification.className = `jnotify-notification jnotify-notification-${type}`;
+
+    const background = document.createElement('div');
+    background.className = 'jnotify-background';
+
+    const closeLink = document.createElement('a');
+    closeLink.className = 'jnotify-close';
+    closeLink.innerHTML = '×';
+    closeLink.addEventListener('click', (e) => {
+      const notification = e.target.closest('.jnotify-notification');
+      const container = document.querySelector('.jnotify-container');
+      container.removeChild(notification)
+    });
+
+    const message = document.createElement('div');
+    message.className = 'jnotify-message';
+
+    message.innerHTML = content;
+
+    notification.appendChild(background)
+    notification.appendChild(closeLink)
+    notification.appendChild(message)
+    container.appendChild(notification)
+
+    setTimeout(() => {
+      container.removeChild(notification);
+    }, 5000)
+  }
+
+  static like(film) {
+    const liked = !!film.querySelector('.icon-liked');
+    const verb = liked ? 'liked' : 'unliked';
+    const type = liked ? 'success' : 'warning';
+
+    const message = `You ${verb} ‘${film?.dataset?.filmName}’.`;
+
+    Notification.create(message, type);
+  };
+
+  static rate(film, rating) {
+    const verb = rating ? 'rated' : 'unrated';
+    const type = rating ? 'success' : 'warning';
+
+    const star = "★";
+    const halfStar = "½";
+
+    const starRating = rating > 0 ? Array(Math.round(rating / 2)).fill(star).join('') + (rating % 2 ? halfStar : '') : '';
+
+    const message = `You ${verb} ‘${film?.dataset?.filmName}’ ${starRating}`;
+
+    Notification.create(message, type);
+  };
+
+  static watch(film) {
+    const watched = !!film.querySelector('.icon-watched');
+    const verb = watched ? 'watched' : 'unwatched';
+    const type = watched ? 'success' : 'warning';
+
+    const message = `You ${verb} ‘${film?.dataset?.filmName}’.`
+
+    Notification.create(message, type);
+  };
+}

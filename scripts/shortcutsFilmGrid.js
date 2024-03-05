@@ -7,7 +7,8 @@ class Film {
 
   static like(film) {
     const likeButton = film.querySelector('.like-link-target .ajax-click-action');
-    return likeButton?.click();
+    likeButton?.click();
+    Notification.like(film);
   }
 
   static async rate(film, rating) {
@@ -17,6 +18,7 @@ class Film {
     if (ratedFilm?.result) {
       Grid.updateTooltipRating(film, rating);
       Grid.updateGridRating(film, rating);
+      Notification.rate(film, rating)
     }
   }
 
@@ -28,7 +30,8 @@ class Film {
 
   static watch(film) {
     const watchButton = film.querySelector('.film-watch-link-target .ajax-click-action');
-    return watchButton?.click();
+    watchButton?.click();
+    Notification.watch(film);
   }
 
   static watchlistAdd(film) {
