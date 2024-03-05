@@ -10,7 +10,9 @@ class Letterboxd {
     return closeButton?.click();
   };
 
-  static createPopOutMenu(film, button) {
+  static createPopOutMenuButton(film, buttonClass) {
+    let button = document.querySelector(buttonClass);
+
     if (!button){
       const mouseOverEvent = new MouseEvent('mouseover');
       const mouseOutEvent = new MouseEvent('mouseout');
@@ -19,7 +21,11 @@ class Letterboxd {
   
       actionsMenu.dispatchEvent(mouseOverEvent);
       actionsMenu.dispatchEvent(mouseOutEvent);
+
+      button = document.querySelector(buttonClass);
     }
+
+    return button;
   };
 
   static getRateUrl(element) {

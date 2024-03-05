@@ -1,7 +1,7 @@
 class Film {
   static addToList(film) {
-    const addToListButton = getByFilm('.menu-item-add-to-list', film.dataset.filmId);
-    Letterboxd.createPopOutMenu(film, addToListButton);
+    const buttonClass = `.menu-item-add-to-list[data-film-id="${film.dataset.filmId}"]`;
+    const addToListButton = Letterboxd.createPopOutMenuButton(film, buttonClass);
     return addToListButton?.click(); 
   }
 
@@ -23,8 +23,8 @@ class Film {
   }
 
   static review(film) {
-    const reviewButton = getByFilm('.menu-item-add-this-film', film.dataset.filmId);
-    Letterboxd.createPopOutMenu(film, reviewButton);
+    const buttonClass = `.menu-item-add-this-film[data-film-id="${film.dataset.filmId}"]`;
+    const reviewButton = Letterboxd.createPopOutMenuButton(film, buttonClass);
     return reviewButton?.click();
   }
 
@@ -35,19 +35,19 @@ class Film {
   }
 
   static watchlistAdd(film) {
-    const addButton = getByFilm('.add-to-watchlist', film.dataset.filmId);
-    Letterboxd.createPopOutMenu(film, addButton);
+    const buttonClass = `.add-to-watchlist[data-film-id="${film.dataset.filmId}"]`;
+    const addButton = Letterboxd.createPopOutMenuButton(film, buttonClass);
     return addButton?.click();
   }
 
-  static watchlistRemove(film) {
-    const removeButton = getByFilm('.remove-from-watchlist', film.dataset.filmId);
-    Letterboxd.createPopOutMenu(film, removeButton);
+  static  watchlistRemove(film) {
+    const buttonClass = `.remove-from-watchlist[data-film-id="${film.dataset.filmId}"]`;
+    const removeButton = Letterboxd.createPopOutMenuButton(film, buttonClass);
     return removeButton?.click();
   }
 
   static watchlistToggle(film) {
-    const notInWatchlist = getByFilm('.not-in-watchlist', film.dataset.filmId);
+    const notInWatchlist = document.querySelector(`.not-in-watchlist[data-film-id="${film.dataset.filmId}"]`);
     return notInWatchlist ? Film.watchlistAdd(film) : Film.watchlistRemove(film)
   }
 }

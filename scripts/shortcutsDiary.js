@@ -1,8 +1,7 @@
 class Film {
   static addToList(film) {
     const filmId = film.querySelector('.linked-film-poster').dataset.filmId;
-    const addToListButton = document.querySelector(`.menu-item-add-to-list[data-film-id="${filmId}"]`);
-    Letterboxd.createPopOutMenu(film, addToListButton);
+    const addToListButton = Letterboxd.createPopOutMenuButton(film, `.menu-item-add-to-list[data-film-id="${filmId}"]`);
     return addToListButton?.click();
   };
 
@@ -23,8 +22,7 @@ class Film {
 
   static review(film) {
     const filmId = film.querySelector('.linked-film-poster').dataset.filmId;
-    const reviewButton = document.querySelector(`.menu-item-add-this-film[data-film-id="${filmId}"]`);
-    Letterboxd.createPopOutMenu(film, reviewButton);
+    const reviewButton = Letterboxd.createPopOutMenuButton(film, `.menu-item-add-this-film[data-film-id="${filmId}"]`);
     return reviewButton?.click()
   };
   
@@ -35,21 +33,19 @@ class Film {
 
   static watchlistAdd(film) {
     const filmId = film.querySelector('.linked-film-poster').dataset.filmId;
-    const addButton = document.querySelector(`.add-to-watchlist[data-film-id="${filmId}"]`);
-    Letterboxd.createPopOutMenu(film, addButton);
+    const addButton = Letterboxd.createPopOutMenuButton(film, `.add-to-watchlist[data-film-id="${filmId}"]`);
     return addButton?.click();
   };
   
   static watchlistRemove(film) {
     const filmId = film.querySelector('.linked-film-poster').dataset.filmId;
-    const removeButton = document.querySelector(`.remove-from-watchlist[data-film-id="${filmId}"]`);
-    Letterboxd.createPopOutMenu(film, removeButton);
+    const removeButton = Letterboxd.createPopOutMenuButton(film, `.remove-from-watchlist[data-film-id="${filmId}"]`);
     return removeButton?.click();
   };
 
   static watchlistToggle(film) {
     const filmId = film.querySelector('.linked-film-poster').dataset.filmId;
-    const notInWatchlist = getByFilm('.not-in-watchlist', filmId);
+    const notInWatchlist = document.querySelector(`.not-in-watchlist[data-film-id="${filmId}"]`);
     return notInWatchlist ? Film.watchlistAdd(film) : Film.watchlistRemove(film)
   }
 }
