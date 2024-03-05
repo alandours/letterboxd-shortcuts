@@ -147,10 +147,9 @@ class Notification {
 
     const star = "★";
     const halfStar = "½";
+    const starRating = rating > 0 ? Array(Math.floor(rating / 2)).fill(star).join('') + (rating % 2 ? halfStar : '') : '';
 
-    const starRating = rating > 0 ? Array(Math.round(rating / 2)).fill(star).join('') + (rating % 2 ? halfStar : '') : '';
-
-    const message = `You ${verb} ‘${film?.dataset?.filmName}’ ${starRating}`;
+    const message = `You ${verb} ‘${film?.dataset?.filmName}’${starRating ? `: ${starRating}` : ''}`;
 
     Notification.create(message, type);
   };
