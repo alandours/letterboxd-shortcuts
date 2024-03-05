@@ -1,4 +1,4 @@
-.lbs-selected-film{
+.lbs-selected-film {
     display: block !important;
     top: 0 !important;
     bottom: 0 !important;
@@ -8,7 +8,7 @@
     background: rgb(0, 224, 84, 0.25);
 }
 
-.lbs-selected-diary-film{
+.lbs-selected-diary-film{ 
     box-shadow: inset 0 0 0 2px #00e056;
     background: rgb(0, 224, 84, 0.1);
 }

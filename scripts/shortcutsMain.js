@@ -132,7 +132,7 @@ class Notification {
   }
 
   static like(film) {
-    const liked = !!film.querySelector('.icon-liked');
+    const liked = !film.querySelector('.icon-liked');
     const verb = liked ? 'liked' : 'unliked';
     const type = liked ? 'success' : 'warning';
 
