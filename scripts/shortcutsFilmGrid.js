@@ -89,7 +89,7 @@ class Grid {
           Grid.filmIndex = (Grid.filmIndex - Grid.filmsPerRow) >= 0 ? Grid.filmIndex - Grid.filmsPerRow : Grid.filmIndex;
           break;
         case 'arrowdown':
-          Grid.filmIndex = (Grid.filmIndex + Grid.filmsPerRow) <= (films.length - 1) ? Grid.filmIndex + Grid.filmsPerRow : Grid.filmIndex;
+          Grid.filmIndex = (Grid.filmIndex + Grid.filmsPerRow) <= (Grid.films.length - 1) ? Grid.filmIndex + Grid.filmsPerRow : Grid.filmIndex;
           break;
         case 'home':
           Grid.filmIndex = 0;
