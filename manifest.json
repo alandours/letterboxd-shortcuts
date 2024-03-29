@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Letterboxd Shortcuts",
   "description": "Keyboard shortcuts for Letterboxd.",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "browser_specific_settings": {
     "gecko": {
       "id": "{42aa0554-ddb5-48b3-bf37-10d59ff2c48d}"
