@@ -6,8 +6,13 @@
 
 Keyboard shortcuts for Letterboxd. Try it on [Firefox](https://addons.mozilla.org/firefox/addon/letterboxd-shortcuts) or [Chrome](https://chrome.google.com/webstore/detail/letterboxd-shortcuts/lpopedcebfdkhelkoiakllmilggjcope).
 
-![Letterboxd Shortcuts preview - Grid](https://addons.cdn.mozilla.net/user-media/previews/full/222/222631.png 'Letterboxd Shortcuts preview - Grid')
-![Letterboxd Shortcuts preview - Film](https://addons.cdn.mozilla.net/user-media/previews/full/222/222632.png 'Letterboxd Shortcuts preview - Film')
+
+
+
+Film page | Grid page
+:--------:|:--------:
+![Letterboxd Shortcuts preview - Film](https://addons.mozilla.org/user-media/previews/full/222/222632.png 'Letterboxd Shortcuts preview - Film') | ![Letterboxd Shortcuts preview - Grid](https://addons.mozilla.org/user-media/previews/full/222/222631.png 'Letterboxd Shortcuts preview - Grid')
+
 
 ### Log/review films
 
